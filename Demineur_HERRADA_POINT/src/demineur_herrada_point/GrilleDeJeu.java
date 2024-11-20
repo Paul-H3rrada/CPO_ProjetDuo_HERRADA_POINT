@@ -44,7 +44,78 @@ public class GrilleDeJeu {
     public void placerBombesAleatoirement() {
         Random rand = new Random();
         int bombesPlacees = 0;
+        for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            if (!grille[i][j].getPresenceBombe()) {
+               int nbBombesAdjacentes = 0;
+               for (int x = -1; x <= 1; x++){
+                   for (int y = -1; y <= 1; y++) {
+                        int newI = i + x;
+                        int newJ = j + y;
+                        if (newI >= 0 && newI < nbLignes && newJ >= 0 && newJ < nbColonnes) {
+                            if (grille[newI][newJ].getPresenceBombe()) {
+                                nbBombesAdjacentes++;
+                            }
+                        }
+                    }
+                }
+               grille[i][j].setNbBombesAdjacentes(nbBombesAdjacentes);
+            }
+        }
+    }
+}
+    public void revelerCellule(int ligne, int colonne) {
+    if (ligne < 0 || ligne >= nbLignes || colonne < 0 || colonne >= nbColonnes) {
+        return; // Vérification que les indices sont dans les limites de la grille
     }
     
+    Cellule cellule = grille[ligne][colonne];
+    
+    // Si la cellule a déjà été révélée, on ne fait rien
+    if (cellule.getPresenceBombe() || cellule.getNbBombesAdjacentes() > 0) {
+        cellule.revelerCellule();
+    }
+    
+    // Si la cellule est vide (pas de bombe ni de bombes adjacentes)
+    if (cellule.getNbBombesAdjacentes() == 0) {
+        // On révèle les cellules adjacentes
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                if (i != 0 || j != 0) {
+                    revelerCellule(ligne + i, colonne + j); // Appel récursif
+                }
+            }
+        }
+    }
+}
+public boolean getPresenceBombe(int i, int j) {
+    if (i >= 0 && i < nbLignes && j >= 0 && j < nbColonnes) {
+        return grille[i][j].getPresenceBombe();
+    }
+    return false;
+}
+public boolean toutesCellulesRevelees() {
+    for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            if (!grille[i][j].getPresenceBombe() && !grille[i][j].devoilee) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+@Override
+public String toString() {
+    StringBuilder sb = new StringBuilder();
+    
+    for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+            sb.append(grille[i][j].toString()).append(" ");
+        }
+        sb.append("\n");
+    }
+    
+    return sb.toString();
 }
 
+}
