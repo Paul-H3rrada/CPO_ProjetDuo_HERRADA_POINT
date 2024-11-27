@@ -11,7 +11,7 @@ package demineur_herrada_point;
  */
 public class Cellule {
     private boolean PresenceBombe;
-    private boolean devoilee;
+    boolean devoilee;
     private int nbBombesAdjacentes;
     
         public Cellule() {

@@ -70,19 +70,15 @@ public class GrilleDeJeu {
     }
     
     Cellule cellule = grille[ligne][colonne];
-    
-    // Si la cellule a déjà été révélée, on ne fait rien
     if (cellule.getPresenceBombe() || cellule.getNbBombesAdjacentes() > 0) {
         cellule.revelerCellule();
     }
-    
-    // Si la cellule est vide (pas de bombe ni de bombes adjacentes)
+ 
     if (cellule.getNbBombesAdjacentes() == 0) {
-        // On révèle les cellules adjacentes
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 if (i != 0 || j != 0) {
-                    revelerCellule(ligne + i, colonne + j); // Appel récursif
+                    revelerCellule(ligne + i, colonne + j); 
                 }
             }
         }
