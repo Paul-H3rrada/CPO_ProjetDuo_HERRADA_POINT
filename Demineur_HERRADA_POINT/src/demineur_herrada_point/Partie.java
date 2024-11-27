@@ -27,29 +27,29 @@ public class Partie {
         System.out.println(grilleDeJeu);
     }
 
-    public void tourDeJeu(int ligne, int colonne) {
-        if (partieTerminee) {
-            System.out.println("La partie est terminée.");
-            return;
-        }
-
-        if (grilleDeJeu.getPresenceBombe(ligne, colonne)) {
-            System.out.println("BOOM ! Oops, je crois vous avez marché au mauvais endroit...");
-            vies--;
-            if (vies <= 0) {
-                System.out.println("GAME OVER !");
-                partieTerminee = true;
-            }
-        } else {
-            grilleDeJeu.revelerCellule(ligne, colonne);
-            if (grilleDeJeu.toutesCellulesRevelees()) {
-                System.out.println("Félicitations, vous avez survécu (victoire) !");
-                partieTerminee = true;
-            }
-        }
-
-        System.out.println(grilleDeJeu);
+public void tourDeJeu(int ligne, int colonne) {
+    // Vérification si les indices sont valides
+    if (ligne < 0 || ligne >= grilleDeJeu.getNbLignes() || colonne < 0 || colonne >= grilleDeJeu.getNbColonnes()) {
+        System.out.println("Coordonnées invalides ! Les indices doivent être dans la plage de la grille.");
+        return; // Rien ne se passe si les indices sont invalides
     }
+
+    // Si les coordonnées sont valides
+    if (grilleDeJeu.getPresenceBombe(ligne, colonne)) {
+        System.out.println("Boom ! Vous avez touché une bombe. Partie terminée !");
+        partieTerminee = true; // Fin de la partie
+    } else {
+        grilleDeJeu.revelerCellule(ligne, colonne); // Révéler la cellule
+        if (grilleDeJeu.toutesCellulesRevelees()) {
+            System.out.println("Félicitations, vous avez gagné !");
+            partieTerminee = true; // Fin de la partie
+        }
+    }
+    System.out.println(grilleDeJeu); // Affiche la grille mise à jour
+}
+
+
+
 
     public void verifierVictoire() {
         if (grilleDeJeu.toutesCellulesRevelees()) {
@@ -58,34 +58,35 @@ public class Partie {
         }
     }
 
-    public void demarrerPartie() {
-        Scanner scanner = new Scanner(System.in);
+  public void demarrerPartie() {
+    Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Bienvenue dans notre Démineur !");
-        initialiserPartie();
+    System.out.println("Bienvenue dans notre Démineur !");
+    initialiserPartie();
 
-        while (!partieTerminee) {
-            System.out.println("Choisissez une action :");
-            System.out.println("1. Révéler une cellule");
-            System.out.println("2. Quitter");
+    while (!partieTerminee) {
+        System.out.println("Choisissez une action :");
+        System.out.println("1. Révéler une cellule");
+        System.out.println("2. Quitter");
 
-            int choix = scanner.nextInt();
-            if (choix == 1) {
-                System.out.print("Entrez la ligne : ");
-                int ligne = scanner.nextInt();
-                System.out.print("Entrez la colonne : ");
-                int colonne = scanner.nextInt();
-                tourDeJeu(ligne, colonne);
-            } else if (choix == 2) {
-                System.out.println("Merci d'avoir joué !");
-                partieTerminee = true;
-            } else {
-                System.out.println("Choix invalide. Veuillez réessayer.");
-            }
+        int choix = scanner.nextInt();
+        if (choix == 1) {
+            System.out.print("Entrez la ligne : ");
+            int ligne = scanner.nextInt();
+            System.out.print("Entrez la colonne : ");
+            int colonne = scanner.nextInt();
+            tourDeJeu(ligne, colonne); // Appel de la méthode qui gère les indices invalides
+        } else if (choix == 2) {
+            System.out.println("Merci d'avoir joué !");
+            partieTerminee = true;
+        } else {
+            System.out.println("Choix invalide. Veuillez réessayer.");
         }
-
-        scanner.close();
     }
+
+    scanner.close();
+}
+
 }
 
     
