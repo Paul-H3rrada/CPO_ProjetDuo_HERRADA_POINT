@@ -36,6 +36,7 @@ public void tourDeJeu(int ligne, int colonne) {
 
     // Si les coordonnées sont valides
     if (grilleDeJeu.getPresenceBombe(ligne, colonne)) {
+        grilleDeJeu.revelerCellule(ligne, colonne);
         System.out.println("Boom ! Vous avez touché une bombe. Partie terminée !");
         partieTerminee = true; // Fin de la partie
     } else {
