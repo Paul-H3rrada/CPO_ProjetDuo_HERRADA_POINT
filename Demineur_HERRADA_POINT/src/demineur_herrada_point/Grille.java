@@ -4,6 +4,9 @@
  */
 package demineur_herrada_point;
 
+import java.awt.GridLayout;
+import javax.swing.JButton;
+
 /**
  *
  * @author thomaspoint
@@ -15,6 +18,15 @@ public class Grille extends javax.swing.JFrame {
      */
     public Grille() {
         initComponents();
+        int nbLignes = 10;
+        int nbColonnes = 10;
+        GrilleJeu.setLayout(new GridLayout(nbLignes, nbColonnes));
+        for (int i=0; i < nbLignes; i++) {
+            for (int j=0; j < nbColonnes; j++ ) {
+                JButton bouton_cellule = new JButton(); // création d'un bouton
+                GrilleJeu.add(bouton_cellule); // ajout au Jpanel PanneauGrille
+}
+}
     }
 
     /**
@@ -26,29 +38,25 @@ public class Grille extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        GrilleJeu = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(153, 255, 255));
-        jPanel1.setLayout(new java.awt.GridLayout());
+        GrilleJeu.setBackground(new java.awt.Color(204, 255, 255));
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(45, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 720, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(40, 40, 40))
+        javax.swing.GroupLayout GrilleJeuLayout = new javax.swing.GroupLayout(GrilleJeu);
+        GrilleJeu.setLayout(GrilleJeuLayout);
+        GrilleJeuLayout.setHorizontalGroup(
+            GrilleJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(32, 32, 32)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 595, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(31, Short.MAX_VALUE))
+        GrilleJeuLayout.setVerticalGroup(
+            GrilleJeuLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
         );
+
+        getContentPane().add(GrilleJeu, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 240, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -89,6 +97,6 @@ public class Grille extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel GrilleJeu;
     // End of variables declaration//GEN-END:variables
 }
