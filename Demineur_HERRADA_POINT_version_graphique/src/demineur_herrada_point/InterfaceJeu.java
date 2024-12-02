@@ -5,6 +5,7 @@
 package demineur_herrada_point;
 
 import java.awt.GridLayout;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -27,11 +28,13 @@ public class InterfaceJeu extends javax.swing.JFrame {
     /**
      * Creates new form InterfaceJeu
      */
+    Partie partie = new Partie(10, 10, 12);
+       
     public InterfaceJeu() {
         initComponents();
         int nbLignes = 10;
         int nbColonnes = 10;
-        int nbBombes = 3;
+        int nbBombes = 7;
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.initialiserPartie();
         PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
@@ -111,6 +114,9 @@ public class InterfaceJeu extends javax.swing.JFrame {
     private javax.swing.JPanel PanneauGrille;
     // End of variables declaration//GEN-END:variables
 
+    private void DebutBouton(BoutonCellule bouton) {
+        bouton.setText("?");
+    }
     private void gererClicBouton(BoutonCellule bouton) {
         bouton.setText("B");
         

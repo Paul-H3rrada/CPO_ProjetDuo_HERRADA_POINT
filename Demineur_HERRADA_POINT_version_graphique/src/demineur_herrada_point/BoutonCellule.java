@@ -7,29 +7,16 @@ package demineur_herrada_point;
 import javax.swing.JButton;
 
 public class BoutonCellule extends JButton {
-    private int ligne;
-    private int colonne;
-    private boolean devoile;
+    int ligne;
+    int colonne;
+    Cellule celluleAssocie;
 
     public BoutonCellule(int ligne, int colonne) {
         this.ligne = ligne;
         this.colonne = colonne;
-        this.devoile = false; // Par défaut, la cellule n'est pas dévoilée
+        Cellule bouton = null;
+        celluleAssocie= bouton;
     }
-
-    public int getLigne() {
-        return ligne;
-    }
-
-    public int getColonne() {
-        return colonne;
-    }
-
-    public boolean isDevoile() {
-        return devoile;
-    }
-
-    public void setDevoile(boolean devoile) {
-        this.devoile = devoile;
-    }
+    
+    
 }
