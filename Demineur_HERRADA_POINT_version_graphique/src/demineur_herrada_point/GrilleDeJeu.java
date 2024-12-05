@@ -8,7 +8,7 @@ import java.util.Random;
  * @author thomaspoint
  */
 public class GrilleDeJeu {
-    private Cellule[][] grille;
+    Cellule[][] grille;
     private int nbLignes;
     private int nbColonnes;
     private int nbBombes;

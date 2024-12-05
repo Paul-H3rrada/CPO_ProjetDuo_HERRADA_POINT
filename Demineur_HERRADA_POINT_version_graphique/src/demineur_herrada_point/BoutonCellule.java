@@ -9,14 +9,17 @@ import javax.swing.JButton;
 public class BoutonCellule extends JButton {
     int ligne;
     int colonne;
-    Cellule celluleAssocie;
+    Cellule celluleAssocie; // permet de relier une Cellule à un bouton sur la grille grâce à la ligne 
+    // et la colonne
 
-    public BoutonCellule(int ligne, int colonne) {
+    public BoutonCellule(int ligne, int colonne, Cellule celluleAssocie) {
         this.ligne = ligne;
         this.colonne = colonne;
-        Cellule bouton = null;
-        celluleAssocie= bouton;
+        this.celluleAssocie = celluleAssocie;
+        this.setText("?"); // Permet de rendre toutes les cases en "?" au départ du jeu 
     }
-    
-    
+
+    public Cellule getCelluleAssociee() {
+        return celluleAssocie;
+    }
 }
