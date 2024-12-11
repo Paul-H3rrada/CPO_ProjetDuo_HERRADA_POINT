@@ -29,8 +29,6 @@ public class EcranFin extends JFrame {
             public void actionPerformed(ActionEvent e) {
                 InterfaceJeu nouveauJeu = new InterfaceJeu();
                 nouveauJeu.setVisible(true);  // Réinitialise la partie
-                
-                
                 dispose(); // Ferme la fenêtre actuelle
             }
         });
