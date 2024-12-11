@@ -163,8 +163,4 @@ public String toString() {
 
     return sb.toString();
 }
-
-    Cellule getCellule(int ligne, int colonne) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-    }
 }
