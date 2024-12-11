@@ -126,15 +126,13 @@ public class InterfaceJeu extends javax.swing.JFrame {
         return; 
     }
     grilleDeJeu.revelerCellule(ligne, colonne); 
+    PanneauGrille.repaint();
     if (cellule.getPresenceBombe()) {
-    bouton.setText("B");
     JOptionPane.showMessageDialog(this, "Boom ! Vous avez perdu !");
     partieTerminee = true;
     desactiverTousLesBoutons();
     afficherEcranFin(); // Affiche l'écran de fin
-
     } else {
-        mettreAJourAffichage();
         if (grilleDeJeu.toutesCellulesRevelees()) {
             JOptionPane.showMessageDialog(this, "Félicitations, vous avez gagné !");
             partieTerminee = true;
