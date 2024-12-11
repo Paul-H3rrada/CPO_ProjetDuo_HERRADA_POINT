@@ -64,14 +64,14 @@ public class InterfaceJeu extends javax.swing.JFrame {
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 470, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 380, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 400, 400));
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 30, 470, 380));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,7 +118,7 @@ public class InterfaceJeu extends javax.swing.JFrame {
     private void DebutBouton(BoutonCellule bouton) {
         bouton.setText("?");
     }
-   private void gererClicBouton(BoutonCellule bouton) {
+    private void gererClicBouton(BoutonCellule bouton) {
     int ligne = bouton.ligne;
     int colonne = bouton.colonne;
     Cellule cellule = bouton.getCelluleAssociee();
@@ -127,16 +127,17 @@ public class InterfaceJeu extends javax.swing.JFrame {
         return; 
     }
     grilleDeJeu.revelerCellule(ligne, colonne); 
+    PanneauGrille.repaint();
+    
     if (cellule.getPresenceBombe()) {
-        bouton.setText("B");
         JOptionPane.showMessageDialog(this, "Boom ! Vous avez perdu !");
         partieTerminee = true;
         desactiverTousLesBoutons();
     } else {
-        mettreAJourAffichage();
         if (grilleDeJeu.toutesCellulesRevelees()) {
             JOptionPane.showMessageDialog(this, "Félicitations, vous avez gagné !");
             partieTerminee = true;
+            desactiverTousLesBoutons();
         }
     }
 }
@@ -150,23 +151,5 @@ private void desactiverTousLesBoutons() {
     }
 }
 
-        // Mettre à jour l'affichage des boutons selon l'état des cellules
-private void mettreAJourAffichage() {
-    for (int i = 0; i < grilleDeJeu.getNbLignes(); i++) {
-        for (int j = 0; j < grilleDeJeu.getNbColonnes(); j++) {
-            Cellule cellule = grilleDeJeu.grille[i][j];
-            BoutonCellule bouton = (BoutonCellule) PanneauGrille.getComponent(i * grilleDeJeu.getNbColonnes() + j);
-            if (cellule.devoilee) {
-                if (cellule.getPresenceBombe()) {
-                    bouton.setText("B");
-                } else if (cellule.getNbBombesAdjacentes() > 0) {
-                    bouton.setText(String.valueOf(cellule.getNbBombesAdjacentes()));
-                } else {
-                    bouton.setText(" ");
-                }
-            }
-        }
-    }
-}
     }
 

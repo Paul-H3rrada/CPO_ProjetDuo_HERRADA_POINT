@@ -4,6 +4,7 @@
  */
 package demineur_herrada_point;
 
+import java.awt.Graphics;
 import javax.swing.JButton;
 
 public class BoutonCellule extends JButton {
@@ -22,4 +23,22 @@ public class BoutonCellule extends JButton {
     public Cellule getCelluleAssociee() {
         return celluleAssocie;
     }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
+    if (celluleAssocie.devoilee) {
+                if (celluleAssocie.getPresenceBombe()) {
+                    this.setText("B");
+                } else if (celluleAssocie.getNbBombesAdjacentes() > 0) {
+                    this.setText(String.valueOf(celluleAssocie.getNbBombesAdjacentes()));
+                } else {
+                    this.setText(" ");
+                }
+            }
+    
+    }
+    
+    
+    
 }
