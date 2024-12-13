@@ -6,8 +6,11 @@ package demineur_herrada_point;
 
 import java.awt.GridLayout;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -34,18 +37,35 @@ public class InterfaceJeu extends javax.swing.JFrame {
         initComponents();
         int nbLignes = 12;
         int nbColonnes = 12;
-        int nbBombes = 20;
+        int nbBombes = 3;
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.initialiserPartie();
         
         PanneauGrille.setLayout(new GridLayout(nbLignes, nbColonnes));
-        for (int i = 0; i < nbLignes; i++) {
-          for (int j = 0; j < nbColonnes; j++) {
-             BoutonCellule bouton = new BoutonCellule(i, j, grilleDeJeu.grille[i][j]);
-             bouton.addActionListener(e -> gererClicBouton(bouton)); 
-             PanneauGrille.add(bouton);
+      for (int i = 0; i < nbLignes; i++) {
+        for (int j = 0; j < nbColonnes; j++) {
+        BoutonCellule bouton = new BoutonCellule(i, j, grilleDeJeu.grille[i][j]);
+         bouton.addMouseListener(new MouseAdapter() {
+             
+            @Override 
+            
+            public void mouseClicked(MouseEvent e) {
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    // Clic gauche : gérer le dévoilement
+                    gererClicBouton(bouton);
+                } else if (SwingUtilities.isRightMouseButton(e)) {
+                    // Clic droit : marquer ou dé-marquer la case
+                    if (!bouton.getCelluleAssociee().devoilee) {
+                        bouton.setMarquee(!bouton.estMarquee());
+                    }
+                }
+            }
+        });
+
+        PanneauGrille.add(bouton);
     }
 }
+
     
 }
  
@@ -118,28 +138,34 @@ public class InterfaceJeu extends javax.swing.JFrame {
     private void DebutBouton(BoutonCellule bouton) {
         bouton.setText("?");
     }
-   private void gererClicBouton(BoutonCellule bouton) {
+    
+private void gererClicBouton(BoutonCellule bouton) {
     int ligne = bouton.ligne;
     int colonne = bouton.colonne;
     Cellule cellule = bouton.getCelluleAssociee();
 
-    if (cellule.devoilee) {
-        return; 
+    if (cellule.devoilee || bouton.estMarquee()) {
+        return; // Ne rien faire si déjà dévoilée ou marquée
     }
-    grilleDeJeu.revelerCellule(ligne, colonne); 
+
+    grilleDeJeu.revelerCellule(ligne, colonne);
     PanneauGrille.repaint();
+
     if (cellule.getPresenceBombe()) {
-    JOptionPane.showMessageDialog(this, "Boom ! Vous avez perdu !");
-    partieTerminee = true;
-    desactiverTousLesBoutons();
-    afficherEcranFin(); // Affiche l'écran de fin
+        JOptionPane.showMessageDialog(this, "Boom ! Vous avez perdu !");
+        partieTerminee = true;
+        desactiverTousLesBoutons();
+        afficherEcranFin(); 
     } else {
         if (grilleDeJeu.toutesCellulesRevelees()) {
             JOptionPane.showMessageDialog(this, "Félicitations, vous avez gagné !");
             partieTerminee = true;
+            desactiverTousLesBoutons();
+            afficherEcranFin();
         }
     }
 }
+
 
     // Désactiver tous les boutons après la fin de la partie
 private void desactiverTousLesBoutons() {
@@ -157,24 +183,7 @@ void reactiverTousLesBoutons() {
     }
 }
 
-        // Mettre à jour l'affichage des boutons selon l'état des cellules
-private void mettreAJourAffichage() {
-    for (int i = 0; i < grilleDeJeu.getNbLignes(); i++) {
-        for (int j = 0; j < grilleDeJeu.getNbColonnes(); j++) {
-            Cellule cellule = grilleDeJeu.grille[i][j];
-            BoutonCellule bouton = (BoutonCellule) PanneauGrille.getComponent(i * grilleDeJeu.getNbColonnes() + j);
-            if (cellule.devoilee) {
-                if (cellule.getPresenceBombe()) {
-                    bouton.setText("B");
-                } else if (cellule.getNbBombesAdjacentes() > 0) {
-                    bouton.setText(String.valueOf(cellule.getNbBombesAdjacentes()));
-                } else {
-                    bouton.setText(" ");
-                }
-            }
-        }
-    }
-}
+
 
     private void afficherEcranFin() {
     new EcranFin(this).setVisible(true); // Affiche l'écran de fin
