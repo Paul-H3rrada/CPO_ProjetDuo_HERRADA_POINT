@@ -4,7 +4,9 @@
  */
 package demineur_herrada_point;
 
+import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -31,13 +33,12 @@ public class InterfaceJeu extends javax.swing.JFrame {
     /**
      * Creates new form InterfaceJeu
      */
-    Partie partie = new Partie(10, 10, 12);
        
     public InterfaceJeu() {
         initComponents();
         int nbLignes = 12;
         int nbColonnes = 12;
-        int nbBombes = 3;
+        int nbBombes = 12;
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.initialiserPartie();
         
@@ -76,9 +77,11 @@ public class InterfaceJeu extends javax.swing.JFrame {
         PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setPreferredSize(new java.awt.Dimension(1940, 1080));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanneauGrille.setBackground(new java.awt.Color(204, 204, 255));
+        PanneauGrille.setPreferredSize(new java.awt.Dimension(1940, 1080));
 
         javax.swing.GroupLayout PanneauGrilleLayout = new javax.swing.GroupLayout(PanneauGrille);
         PanneauGrille.setLayout(PanneauGrilleLayout);
@@ -126,7 +129,11 @@ public class InterfaceJeu extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new InterfaceJeu().setVisible(true);;
+                InterfaceJeu f = new InterfaceJeu();
+                new InterfaceJeu().setVisible(true);
+                Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+                f.setExtendedState(f.MAXIMIZED_BOTH);
+                f.pack();
             }
         });
     }

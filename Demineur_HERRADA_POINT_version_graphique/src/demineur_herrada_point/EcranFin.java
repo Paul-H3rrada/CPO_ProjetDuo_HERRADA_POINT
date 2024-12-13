@@ -27,6 +27,7 @@ public class EcranFin extends JFrame {
         boutonRejouer.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                jeu.setVisible(false);
                 InterfaceJeu nouveauJeu = new InterfaceJeu();
                 nouveauJeu.setVisible(true);  // Réinitialise la partie
                 
