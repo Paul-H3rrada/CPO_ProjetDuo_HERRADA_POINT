@@ -32,9 +32,9 @@ public class InterfaceJeu extends javax.swing.JFrame {
        
     public InterfaceJeu() {
         initComponents();
-        int nbLignes = 10;
-        int nbColonnes = 10;
-        int nbBombes = 7;
+        int nbLignes = 20;
+        int nbColonnes = 20;
+        int nbBombes = 15;
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.initialiserPartie();
         
@@ -56,7 +56,6 @@ public class InterfaceJeu extends javax.swing.JFrame {
         PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanneauGrille.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -64,14 +63,14 @@ public class InterfaceJeu extends javax.swing.JFrame {
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 831, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGap(0, 654, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 20, 400, 400));
+        getContentPane().add(PanneauGrille, java.awt.BorderLayout.CENTER);
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -127,13 +126,13 @@ public class InterfaceJeu extends javax.swing.JFrame {
         return; 
     }
     grilleDeJeu.revelerCellule(ligne, colonne); 
+    PanneauGrille.repaint();
     if (cellule.getPresenceBombe()) {
-        bouton.setText("B");
-        JOptionPane.showMessageDialog(this, "Boom ! Vous avez perdu !");
-        partieTerminee = true;
-        desactiverTousLesBoutons();
+    JOptionPane.showMessageDialog(this, "Boom ! Vous avez perdu !");
+    partieTerminee = true;
+    desactiverTousLesBoutons();
+    afficherEcranFin(); // Affiche l'écran de fin
     } else {
-        mettreAJourAffichage();
         if (grilleDeJeu.toutesCellulesRevelees()) {
             JOptionPane.showMessageDialog(this, "Félicitations, vous avez gagné !");
             partieTerminee = true;
@@ -146,6 +145,13 @@ private void desactiverTousLesBoutons() {
     for (int i = 0; i < PanneauGrille.getComponentCount(); i++) {
         if (PanneauGrille.getComponent(i) instanceof JButton) {
             PanneauGrille.getComponent(i).setEnabled(false);
+        }
+    }
+}
+void reactiverTousLesBoutons() {
+    for (int i = 0; i < PanneauGrille.getComponentCount(); i++) {
+        if (PanneauGrille.getComponent(i) instanceof JButton) {
+            PanneauGrille.getComponent(i).setEnabled(true);
         }
     }
 }
@@ -168,5 +174,9 @@ private void mettreAJourAffichage() {
         }
     }
 }
-    }
+
+    private void afficherEcranFin() {
+    new EcranFin(this).setVisible(true); // Affiche l'écran de fin
+   }
+}
 
