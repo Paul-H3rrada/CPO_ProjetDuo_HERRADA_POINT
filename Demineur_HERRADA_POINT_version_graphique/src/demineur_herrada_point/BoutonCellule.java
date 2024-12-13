@@ -12,6 +12,7 @@ public class BoutonCellule extends JButton {
     int colonne;
     Cellule celluleAssocie; // permet de relier une Cellule à un bouton sur la grille grâce à la ligne 
     // et la colonne
+    boolean marquee =false;
 
     public BoutonCellule(int ligne, int colonne, Cellule celluleAssocie) {
         this.ligne = ligne;
@@ -23,13 +24,26 @@ public class BoutonCellule extends JButton {
     public Cellule getCelluleAssociee() {
         return celluleAssocie;
     }
+    
+public void setMarquee(boolean marquee) {
+        this.marquee = marquee;
+        if (marquee) {
+            this.setText("🚩"); // Afficher le symbole de drapeau
+        } else {
+            this.setText("?"); // Retirer le symbole
+        }
+    }
+
+    public boolean estMarquee() {
+        return marquee;
+    }
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/OverriddenMethodBody
     if (celluleAssocie.devoilee) {
                 if (celluleAssocie.getPresenceBombe()) {
-                    this.setText("B");
+                    this.setText("💣");
                 } else if (celluleAssocie.getNbBombesAdjacentes() > 0) {
                     this.setText(String.valueOf(celluleAssocie.getNbBombesAdjacentes()));
                 } else {
