@@ -32,9 +32,9 @@ public class InterfaceJeu extends javax.swing.JFrame {
        
     public InterfaceJeu() {
         initComponents();
-        int nbLignes = 20;
-        int nbColonnes = 20;
-        int nbBombes = 15;
+        int nbLignes = 12;
+        int nbColonnes = 12;
+        int nbBombes = 20;
         this.grilleDeJeu = new GrilleDeJeu(nbLignes, nbColonnes, nbBombes);
         this.initialiserPartie();
         
@@ -56,6 +56,7 @@ public class InterfaceJeu extends javax.swing.JFrame {
         PanneauGrille = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         PanneauGrille.setBackground(new java.awt.Color(204, 204, 255));
 
@@ -63,14 +64,14 @@ public class InterfaceJeu extends javax.swing.JFrame {
         PanneauGrille.setLayout(PanneauGrilleLayout);
         PanneauGrilleLayout.setHorizontalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 831, Short.MAX_VALUE)
+            .addGap(0, 740, Short.MAX_VALUE)
         );
         PanneauGrilleLayout.setVerticalGroup(
             PanneauGrilleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 654, Short.MAX_VALUE)
+            .addGap(0, 500, Short.MAX_VALUE)
         );
 
-        getContentPane().add(PanneauGrille, java.awt.BorderLayout.CENTER);
+        getContentPane().add(PanneauGrille, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, 740, 500));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
