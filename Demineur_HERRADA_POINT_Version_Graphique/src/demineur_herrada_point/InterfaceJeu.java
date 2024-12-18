@@ -337,4 +337,5 @@ public void mettreAJourGrille(int nbLignes, int nbColonnes, int nbBombes) {
     PanneauGrille.revalidate();
     PanneauGrille.repaint();
 }
+
 }
